@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-blue-800 rounded-xl shadow-xl text-white">
+  
+  <h1 class="text-3xl font-bold mb-6 text-center">Find a Store</h1>
+  
+  <form method="POST" class="space-y-6">
+    {% csrf_token %} 
+    
+    <div class="[&>p]:mb-4 [&>p>label]:block [&>p>label]:mb-1 [&>p>label]:font-medium [&>p>input]:w-full [&>p>input]:px-4 [&>p>input]:py-2 [&>p>input]:rounded-md [&>p>input]:text-gray-900 [&>p>select]:w-full [&>p>select]:px-4 [&>p>select]:py-2 [&>p>select]:rounded-md [&>p>select]:text-gray-900">
+      {{ form.as_p }}
+    </div>
+    
+    <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200">
+      Search Store
+    </button>
+  </form>
+
+  {% if stores %}
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold mb-4 border-b border-blue-700 pb-2">Stores Available</h2>
+      
+      <ul class="space-y-3">
+        {% for store in stores %}
+          <li class="bg-blue-900 p-4 rounded-lg flex flex-col sm:flex-row sm:justify-between sm:items-center hover:bg-blue-700 transition-colors"> 
+            <span class="font-bold text-lg">{{ store.name }}</span> 
+            <span class="text-blue-300 font-medium">{{ store.location }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %} 
+
+</div>
+{% endblock %}
